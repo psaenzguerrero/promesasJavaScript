@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos Fetch</title>
-    <link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.css">
     <style>
         .cargando{
             width: 50px;
             height: 50px;
             border: solid 10px black;
             border-radius: 50%;
-            border-top-color:crimson ;
+            border-top-color: white ;
             animation: rotar 1s linear infinite;
         }
 
@@ -67,34 +67,25 @@
         const url="https://www.rtve.es/api/noticias.json";
         const row=document.querySelector(".row");
         const cargando=document.querySelector(".cargando");
-
-
-
         fetch(url)
         .then(response=>response.json())
         .then(datos=>{
             // console.log(datos.page.items);
             cargando.style.display="none";
-            datos.page.items.forEach(dato => {
+            datos.page.items.forEach((dato, id) => {
                 row.innerHTML+=`
                     <div class="col-md-4">
-                            <!-- Inicio col md -->
-
                         <div class="card text-white bg-primary mb-3">
                             <div class="card-header"><img src=${dato.image} alt="" class="img-fluid"></div>
                             <div class="card-body">
                             <h4 class="card-title">${dato.title}</h4>
-                            <a href="detalles.html?id=" class="btn btn-danger my-3">Más info</a>
+                            <a href="detalles.html?id=${id}" class="btn btn-danger my-3">Más info</a>
                             </div>
                         </div>
-
-                            <!-- Fin col md -->
                     </div>
                 `;
             });
-
         });
-
     </script>
 </body>
 </html>
