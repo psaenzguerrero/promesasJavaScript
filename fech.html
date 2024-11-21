@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Fetch</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
+    <style>
+        .cargando{
+            width: 50px;
+            height: 50px;
+            border: solid 10px black;
+            border-radius: 50%;
+            border-top-color:crimson ;
+            animation: rotar 1s linear infinite;
+        }
+
+        @keyframes rotar {
+            from{transform: rotate(0deg);}
+            to{transform: rotate(360deg);}
+        }
+
+        .card{
+            min-height: 450px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="cargando">
+
+    </div>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- <div class="col-md-4">
+                     Inicio col md
+
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header"><img src="https://img.rtve.es/imagenes/a9/1485450276539.jpg" alt="" class="img-fluid"></div>
+                    <div class="card-body">
+                      <h4 class="card-title">Orquesta Sinfónica RTVE</h4>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+
+                    Fin col md 
+            </div> -->
+        </div>
+    </div>
+    
+    <script>
+        //EJEMPLO 1
+        // const url="https://jsonplaceholder.typicode.com/posts";
+        // //Te promete que te convertirá ese JSON que viene del servidor, pero no se cuanto tardaré, entonces, cuando lo haré, pero te devuelvo una respuesta seguro(ya sea de error o favorable)
+        // fetch(url)//El fetch en sí es una promesa
+        // .then(res=>res.json())//Hay que convertir la respuesta JSON a objeto para que js lo entienda, la restuesta es otra promesa por lo que hay que hacer otro callback
+        // .then(datos=>{
+        //     datos.forEach(dato => {
+        //         document.write(`${dato.title} <br>`);//Para cada dato muestro su título
+        //     });
+        // })
+        // .catch(error=>console.log(error));
+
+
+        //EJEMPLO 2
+        const url="https://www.rtve.es/api/noticias.json";
+        const row=document.querySelector(".row");
+        const cargando=document.querySelector(".cargando");
+
+
+
+        fetch(url)
+        .then(response=>response.json())
+        .then(datos=>{
+            // console.log(datos.page.items);
+            cargando.style.display="none";
+            datos.page.items.forEach(dato => {
+                row.innerHTML+=`
+                    <div class="col-md-4">
+                            <!-- Inicio col md -->
+
+                        <div class="card text-white bg-primary mb-3">
+                            <div class="card-header"><img src=${dato.image} alt="" class="img-fluid"></div>
+                            <div class="card-body">
+                            <h4 class="card-title">${dato.title}</h4>
+                            <a href="detalles.html?id=" class="btn btn-danger my-3">Más info</a>
+                            </div>
+                        </div>
+
+                            <!-- Fin col md -->
+                    </div>
+                `;
+            });
+
+        });
+
+    </script>
+</body>
+</html>
