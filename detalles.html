@@ -34,18 +34,20 @@
         const url = "https://www.rtve.es/api/noticias.json";
         const host = window.location.href;
         const id = host.split("?id=")[1];
+
         fetch(url)
             .then(resp => resp.json())
             .then(datos => {
-                const noticias = datos.page.items;
+                const noticias = datos.page.items[id];
+                console.log(noticias)
                 colmd4.innerHTML = `
                     <div class="card text-white bg-primary mb-3 p-3">
                     <div class="card-header">
-                        <img src="${noticias[id].image}" alt="" class="img-fluid">
+                        <img src="${noticias.image}" alt="" class="img-fluid">
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">${noticias[id].title}</h4>
-                        <p class="card-text">${noticias[id].summary}</p>
+                        <h4 class="card-title">${noticias.title}</h4>
+                        <p class="card-text">${noticias.summary}</p>
                         <a href="fetch.html" class="btn btn-danger">
                             volver
                         </a>
